@@ -1,0 +1,6 @@
+componente,valor_inicial,valor_final,var_nominal_pct,ipca_pct,var_real_pct,valor_inicial_corrigido,inicio,fim
+produtor_com_tributos_federais,25.51,35.62,39.6,54.8,-9.8,39.49,2018-01,2026-08
+preco_consumidor,67.08,117.59,75.3,54.8,13.2,103.85,2018-01,2026-08
+margem_distribuicao,12.67,23.88,88.5,54.8,21.7,19.61,2018-01,2026-08
+margem_revenda,20.34,38.98,91.6,54.8,23.8,31.49,2018-01,2026-08
+icms,8.56,19.11,123.2,54.8,44.2,13.25,2018-01,2026-08

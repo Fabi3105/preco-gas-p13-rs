@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Para onde foi o aumento do gás de cozinha? | P13 no Rio Grande do Sul</title>
+<style>
+  :root {
+    --navy: #1B365D; --navy-dark: #142946; --navy-light: #76869E; --navy-pale: #D1D7DF;
+    --gold: #FFD100; --gold-dark: #BF9D00; --gold-pale: #FFF6CC;
+    --bg: #F3F4F7; --card: #FFFFFF; --border: #E3E6EB; --text: #1F2A37; --muted: #6B7280; --grid: #E9ECF0;
+    --c-produtor: #1a98b3; --c-icms: #D9713C; --c-distribuicao: #3f6fb5; --c-revenda: #d6ab00;
+    --c-consumidor: #1B365D; --c-ipca: #97999B;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Galyon, Calibri, "Segoe UI", Arial, sans-serif; font-size: 16px; line-height: 1.5; }
+  header.topo { background: var(--navy); color: #fff; border-bottom: 4px solid var(--gold); }
+  .faixa { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  .topo .faixa { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 14px; padding-bottom: 14px; }
+  .topo img { height: 46px; width: auto; display: block; }
+  .topo .selo { font-size: 13px; color: var(--navy-pale); text-align: right; }
+  .abertura { background: var(--navy-dark); color: #fff; padding: 34px 0 38px; }
+  .abertura .olho { color: var(--gold); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; margin: 0 0 8px; }
+  h1 { font-size: clamp(26px, 4vw, 40px); line-height: 1.15; margin: 0 0 12px; font-weight: 700; }
+  .abertura .resposta { font-size: clamp(16px, 2vw, 19px); max-width: 860px; margin: 0; color: #E7EBF1; }
+  .abertura .resposta strong { color: var(--gold); font-weight: 700; }
+  main { padding: 24px 0 8px; }
+  section { margin-bottom: 30px; }
+  h2 { font-size: 22px; color: var(--navy); margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 14px; max-width: 880px; }
+  .grade { display: grid; gap: 16px; }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g2 { grid-template-columns: 1.6fr 1fr; }
+  .g2i { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { .g4 { grid-template-columns: repeat(2, 1fr); } .g2, .g2i, .g3 { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .g4 { grid-template-columns: 1fr; } .topo .selo { display: none; } }
+  .cartao { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; min-width: 0; }
+  .cartao h3 { font-size: 17px; margin: 0 0 2px; color: var(--text); }
+  .cartao .nota { font-size: 13.5px; color: var(--muted); margin: 0 0 10px; }
+  .indicador { border-top: 4px solid var(--navy); }
+  .indicador .rotulo { font-size: 13.5px; color: var(--muted); display: flex; align-items: center; gap: 7px; }
+  .indicador .valor { font-size: 34px; font-weight: 700; line-height: 1.15; margin: 4px 0 2px; color: var(--text); }
+  .indicador .detalhe { font-size: 13.5px; color: var(--muted); }
+  .amostra { width: 11px; height: 11px; border-radius: 3px; display: inline-block; flex: none; }
+  .legenda { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13.5px; color: var(--text); margin: 4px 0 6px; }
+  .legenda span { display: inline-flex; align-items: center; gap: 6px; }
+  .legenda .linha { width: 18px; height: 0; border-top: 3px solid; display: inline-block; }
+  .legenda .linha.tracejada { border-top-style: dashed; }
+  .alternar { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 2px 0 8px; }
+  .alternar button { font: inherit; font-size: 13.5px; padding: 6px 12px; border: 0; background: #fff; color: var(--text); cursor: pointer; }
+  .alternar button[aria-pressed="true"] { background: var(--navy); color: #fff; }
+  .alternar button:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: -2px; }
+  .grafico { width: 100%; position: relative; }
+  .grafico svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .grafico text { font-family: inherit; }
+  details { margin-top: 8px; font-size: 13.5px; }
+  details summary { cursor: pointer; color: var(--navy); }
+  .tabela-rolagem { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; font-size: 13px; }
+  tr.destaque td { background: var(--gold-pale); font-weight: 700; }
+  #dica { position: fixed; z-index: 10; pointer-events: none; background: var(--navy-dark); color: #fff; font-size: 13px; line-height: 1.4;
+          padding: 8px 10px; border-radius: 6px; max-width: 280px; box-shadow: 0 4px 14px rgba(0,0,0,.25); display: none; }
+  #dica b { color: var(--gold); font-weight: 700; }
+  #dica .l { display: flex; justify-content: space-between; gap: 14px; }
+  #dica .l i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; margin-right: 6px; }
+  .leitura { background: var(--gold-pale); border-left: 4px solid var(--gold); border-radius: 6px; padding: 10px 14px; font-size: 15px; margin-top: 12px; }
+  ul.limpa { margin: 6px 0 0; padding-left: 20px; }
+  ul.limpa li { margin-bottom: 5px; }
+  footer { background: var(--navy); color: var(--navy-pale); font-size: 13.5px; padding: 18px 0; margin-top: 10px; }
+  footer a { color: #fff; }
+</style>
+</head>
+<body>
+<header class="topo"><div class="faixa">
+  <img src="__LOGO__" alt="Aliatti Comércio de Gás">
+  <div class="selo">Estudo de caso com dados públicos<br>ANP · Sindigás · IBGE</div>
+</div></header>
+
+<div class="abertura"><div class="faixa">
+  <p class="olho">Botijão de 13 kg (P13) · Rio Grande do Sul · 2018 a 2026</p>
+  <h1>Para onde foi o aumento do gás de cozinha?</h1>
+  <p class="resposta" id="resposta"></p>
+</div></div>
+
+<main><div class="faixa">
+
+<section aria-label="Indicadores">
+  <div class="grade g4" id="indicadores"></div>
+</section>
+
+<section>
+  <h2>A conta do botijão, ano a ano</h2>
+  <p class="sub">Cada barra é o preço médio do P13 no ano, dividido entre quem recebe cada parte. Em reais de hoje, a parcela do produtor encolheu e as de ICMS e revenda cresceram.</p>
+  <div class="grade g2">
+    <div class="cartao">
+      <h3>Composição do preço ao consumidor</h3>
+      <p class="nota" id="nota-composicao"></p>
+      <div class="alternar" role="group" aria-label="Unidade">
+        <button type="button" id="btn-real" aria-pressed="true">Reais de hoje</button>
+        <button type="button" id="btn-nominal" aria-pressed="false">Valores da época</button>
+      </div>
+      <div class="legenda" id="leg-composicao"></div>
+      <div class="grafico" id="g-composicao"></div>
+      <details><summary>Ver os números em tabela</summary><div class="tabela-rolagem" id="t-composicao"></div></details>
+    </div>
+    <div class="cartao">
+      <h3 id="titulo-diferenca"></h3>
+      <p class="nota" id="nota-diferenca"></p>
+      <div class="grafico" id="g-diferenca"></div>
+      <div class="leitura" id="leitura-diferenca"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>O gás contra a inflação</h2>
+  <p class="sub">O preço ao consumidor descolou do IPCA em 2021 e não voltou. O preço do produtor disparou junto, mas depois caiu para abaixo da inflação.</p>
+  <div class="grade g2i">
+    <div class="cartao">
+      <h3>Preço ao consumidor, preço do produtor e IPCA</h3>
+      <p class="nota">Índice, média de 2018 = 100. Passe o cursor para ver cada mês.</p>
+      <div class="grafico" id="g-indices"></div>
+    </div>
+    <div class="cartao">
+      <h3>Reajuste do botijão e IPCA em cada ano</h3>
+      <p class="nota">Variação de dezembro a dezembro, em %. Só 2021 fugiu da inflação.</p>
+      <div class="legenda" id="leg-reajuste"></div>
+      <div class="grafico" id="g-reajuste"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Por que o P13</h2>
+  <p class="sub">O botijão de 13 kg é o produto principal das revendas e responde por mais da metade do GLP vendido no estado. O consumo cai devagar e tem pico no inverno; o preço não acompanha as estações.</p>
+  <div class="grade g2">
+    <div class="cartao">
+      <h3>O volume tem estação; o preço, não</h3>
+      <p class="nota">Índice sazonal: mês comparado à média móvel de 12 meses (100 = mês típico).</p>
+      <div class="legenda" id="leg-sazonal"></div>
+      <div class="grafico" id="g-sazonal"></div>
+    </div>
+    <div class="grade" id="indicadores-p13" style="align-content:start"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Onde o botijão é mais caro</h2>
+  <p class="sub" id="sub-cidades"></p>
+  <div class="grade g2">
+    <div class="cartao">
+      <h3>Preço médio por município</h3>
+      <p class="nota" id="nota-cidades"></p>
+      <div class="legenda" id="leg-cidades"></div>
+      <div class="grafico" id="g-cidades"></div>
+    </div>
+    <div class="grade" style="align-content:start">
+      <div class="cartao">
+        <h3>Diferença por bandeira</h3>
+        <p class="nota">Quanto cada bandeira cobra acima ou abaixo da média da mesma cidade no mesmo mês, em R$.</p>
+        <div class="grafico" id="g-bandeira"></div>
+      </div>
+      <div class="cartao">
+        <h3>A diferença entre cidades vem da margem</h3>
+        <p class="nota">Preço de compra e margem média por revenda, de 2018 a ago/2020 (período em que a ANP coletou o preço de compra). Extremos e cidades da Serra.</p>
+        <div class="tabela-rolagem" id="t-margem"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Projeção para 2027</h2>
+  <p class="sub" id="sub-projecao"></p>
+  <div class="grade g3" id="indicadores-projecao" style="margin-bottom:16px"></div>
+  <div class="grade g2">
+    <div class="cartao">
+      <h3>Preço médio do P13 no RS: realizado e projetado</h3>
+      <p class="nota" id="nota-projecao"></p>
+      <div class="legenda" id="leg-projecao"></div>
+      <div class="grafico" id="g-projecao"></div>
+    </div>
+    <div class="cartao">
+      <h3>Como a regra de projeção foi escolhida</h3>
+      <p class="nota" id="nota-teste"></p>
+      <div class="tabela-rolagem" id="t-teste"></div>
+      <div class="leitura">A regra mais simples venceu: supor que o botijão acompanha a inflação errou menos que prolongar a tendência recente. É o mesmo padrão que aparece no histórico.</div>
+    </div>
+  </div>
+  <div class="cartao" style="margin-top:16px">
+    <h3>RS e Serra Gaúcha</h3>
+    <p class="nota">Cada cidade recebe a projeção do estado mais a diferença que manteve em relação a ele nos últimos 12 meses. Valores em R$ por botijão.</p>
+    <div class="tabela-rolagem" id="t-serra"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Método, fontes e limites</h2>
+  <div class="grade g2i">
+    <div class="cartao">
+      <h3>Fontes</h3>
+      <ul class="limpa">
+        <li><strong>ANP</strong>, Série Histórica de Preços de Combustíveis e de GLP: preço do P13 por revenda e data de coleta. <span id="fonte-anp"></span></li>
+        <li><strong>ANP</strong>, composição do preço do P13 por estado, republicada pelo <strong>Sindigás</strong>: do preço do produtor à margem de revenda, mês a mês.</li>
+        <li><strong>ANP/Sindigás</strong>, vendas de GLP por embalagem e estado de destino.</li>
+        <li><strong>IBGE</strong>, IPCA (SIDRA, tabela 1737), usado para trazer os valores a reais de hoje.</li>
+      </ul>
+      <p class="nota" style="margin-top:10px">Tratamento em Python e pandas, consultas em SQL e este painel em HTML e JavaScript, sem bibliotecas externas. O código e as consultas estão no repositório do estudo.</p>
+    </div>
+    <div class="cartao">
+      <h3>Limites dos dados</h3>
+      <ul class="limpa">
+        <li>Os dados mostram que a margem de revenda e o ICMS cresceram, mas não explicam a causa. Custos da revenda (frete, salários, aluguel) não fazem parte das bases.</li>
+        <li>Margem bruta não é lucro: dela saem todos os custos de operação da revenda.</li>
+        <li>A pesquisa de preços cobre 37 municípios gaúchos e foi reduzida em 2024 e 2025. Não há coleta em setembro de 2020.</li>
+        <li>O preço de compra por revenda só existe até agosto de 2020. Depois disso, a margem vem da tabela estadual.</li>
+        <li>Nos arquivos de 2018, toda revenda aparece como bandeira branca; a comparação entre bandeiras começa em 2019.</li>
+        <li>A projeção repete a inflação recente e não antecipa mudanças de imposto, de preço do produtor ou de política de preços.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div></main>
+
+<footer><div class="faixa">
+  Estudo independente, feito apenas com dados públicos. Não usa dados internos da Aliatti Comércio de Gás.
+  Elaborado por Fabian Aliatti Mayer. <span id="rodape-datas"></span>
+</div></footer>
+<div id="dica" role="status"></div>
+
+<script>/*__DADOS__*/</script>
+<script>/*__PROJECAO__*/</script>
+<script>
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const COR = { produtor: "#1a98b3", icms: "#D9713C", distribuicao: "#3f6fb5", revenda: "#d6ab00", consumidor: "#1B365D", ipca: "#97999B",
+              destaque: "#FFD100", neutro: "#76869E", texto: "#1F2A37", mudo: "#6B7280", grade: "#E9ECF0", eixo: "#C5CAD3" };
+const NOME = { produtor: "Produtor + tributos federais", icms: "ICMS", distribuicao: "Margem de distribuição", revenda: "Margem de revenda",
+               consumidor: "Preço ao consumidor", ipca: "IPCA" };
+const PARCELAS = ["produtor", "icms", "distribuicao", "revenda"];
+const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const SERRA = ["CAXIAS DO SUL", "BENTO GONCALVES", "VACARIA", "GRAMADO"];
+const ACENTOS = { "BENTO GONCALVES": "Bento Gonçalves", "SAO LEOPOLDO": "São Leopoldo", "GUAIBA": "Guaíba", "GRAVATAI": "Gravataí", "VIAMAO": "Viamão",
+  "IJUI": "Ijuí", "OSORIO": "Osório", "SAO LUIZ GONZAGA": "São Luiz Gonzaga", "SAO GABRIEL": "São Gabriel", "SANTO ANGELO": "Santo Ângelo", "BAGE": "Bagé",
+  "LIQUIGÁS": "Liquigás", "NACIONAL GÁS BUTANO": "Nacional Gás", "SUPERGASBRAS ENERGIA": "Supergasbras", "COPA ENERGIA": "Copa Energia", "BRANCA": "Bandeira branca" };
+
+const num = (v, d = 0) => v.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const brl = (v, d = 2) => "R$ " + num(v, d);
+const pct = (v, d = 1) => (v > 0 ? "+" : v < 0 ? "−" : "") + num(Math.abs(v), d) + "%";
+const sinal = (v, d = 2) => (v > 0 ? "+" : v < 0 ? "−" : "") + "R$ " + num(Math.abs(v), d);
+const mesCurto = m => MESES[+m.slice(5) - 1] + "/" + m.slice(2, 4);
+const titulo = s => ACENTOS[s] || s.toLowerCase().replace(/(^|\s)(\S)/g, (_, a, b) => a + b.toUpperCase()).replace(/ (Do|Da|De|Dos|Das) /g, x => x.toLowerCase());
+const $ = id => document.getElementById(id);
+
+function svgEl(tag, attrs, pai, texto) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (texto !== undefined) e.textContent = texto;
+  if (pai) pai.appendChild(e);
+  return e;
+}
+const dica = $("dica");
+function mostrarDica(html, ev) {
+  dica.innerHTML = html; dica.style.display = "block";
+  const l = Math.min(ev.clientX + 14, window.innerWidth - dica.offsetWidth - 8);
+  const t = ev.clientY + 16 + dica.offsetHeight > window.innerHeight ? ev.clientY - dica.offsetHeight - 10 : ev.clientY + 16;
+  dica.style.left = Math.max(8, l) + "px"; dica.style.top = Math.max(8, t) + "px";
+}
+const esconderDica = () => { dica.style.display = "none"; };
+const linhaDica = (cor, nome, valor) => `<div class="l"><span>${cor ? `<i style="background:${cor}"></i>` : ""}${nome}</span><span>${valor}</span></div>`;
+
+function escala(min, max, passos = 5) {
+  const bruto = (max - min) / passos, pot = Math.pow(10, Math.floor(Math.log10(bruto)));
+  const passo = [1, 2, 2.5, 5, 10].map(f => f * pot).find(p => p >= bruto);
+  const ini = Math.floor(min / passo) * passo, fim = Math.ceil(max / passo) * passo, marcas = [];
+  for (let v = ini; v <= fim + passo / 2; v += passo) marcas.push(+v.toFixed(6));
+  return { min: ini, max: fim, marcas };
+}
+function quadro(cont, altura, m) {
+  cont.innerHTML = "";
+  const W = Math.max(300, cont.clientWidth), H = altura;
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }, cont);
+  return { svg, W, H, m, iw: W - m.e - m.d, ih: H - m.t - m.b };
+}
+function eixoY(q, esc, y, formato) {
+  esc.marcas.forEach(v => {
+    svgEl("line", { x1: q.m.e, x2: q.W - q.m.d, y1: y(v), y2: y(v), stroke: v === 0 ? COR.eixo : COR.grade, "stroke-width": 1 }, q.svg);
+    svgEl("text", { x: q.m.e - 8, y: y(v) + 4, "text-anchor": "end", "font-size": 12, fill: COR.mudo }, q.svg, formato(v));
+  });
+}
+function legenda(id, itens) {
+  $(id).innerHTML = itens.map(i => i.linha
+    ? `<span><i class="linha${i.tracejada ? " tracejada" : ""}" style="border-color:${i.cor}"></i>${i.nome}</span>`
+    : `<span><i class="amostra" style="background:${i.cor}"></i>${i.nome}</span>`).join("");
+}
+function tabela(id, colunas, linhas, destaque) {
+  $(id).innerHTML = "<table><thead><tr>" + colunas.map(c => `<th scope="col">${c}</th>`).join("") + "</tr></thead><tbody>" +
+    linhas.map((l, i) => `<tr${destaque && destaque(i) ? ' class="destaque"' : ""}>` + l.map(c => `<td>${c}</td>`).join("") + "</tr>").join("") + "</tbody></table>";
+}
+function barraArredondada(x, y, w, h, r, emCima) {
+  r = Math.min(r, w / 2, Math.abs(h));
+  return emCima
+    ? `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`
+    : `M${x},${y}V${y + h - r}Q${x},${y + h} ${x + r},${y + h}H${x + w - r}Q${x + w},${y + h} ${x + w},${y + h - r}V${y}Z`;
+}
+
+/* ---------- Barras empilhadas ---------- */
+function barrasEmpilhadas(id, { categorias, series, formato, rotuloTotal }) {
+  const cont = $(id), q = quadro(cont, 380, { t: 26, d: 8, b: 44, e: 58 });
+  const totais = categorias.map((_, i) => series.reduce((s, r) => s + r.valores[i], 0));
+  const esc = escala(0, Math.max(...totais) * 1.06), y = v => q.m.t + q.ih * (1 - v / esc.max);
+  eixoY(q, esc, y, v => "R$ " + num(v));
+  const passo = q.iw / categorias.length, larg = Math.min(64, passo * 0.66);
+  categorias.forEach((cat, i) => {
+    const x = q.m.e + passo * i + (passo - larg) / 2;
+    let base = 0;
+    const g = svgEl("g", {}, q.svg);
+    series.forEach((s, k) => {
+      const v = s.valores[i], y1 = y(base + v), h = y(base) - y1, topo = k === series.length - 1;
+      const forma = topo ? svgEl("path", { d: barraArredondada(x, y1, larg, h - 2, 4, true), fill: s.cor }, g)
+                         : svgEl("rect", { x, y: y1, width: larg, height: Math.max(0, h - 2), fill: s.cor }, g);
+      if (h >= 17 && larg >= 34) svgEl("text", { x: x + larg / 2, y: y1 + h / 2 + 3, "text-anchor": "middle", "font-size": 12, fill: "#fff", "font-weight": 700, "pointer-events": "none",
+        stroke: "rgba(0,0,0,.28)", "stroke-width": 2, "paint-order": "stroke" }, g, num(v));
+      forma.addEventListener("mousemove", ev => mostrarDica(`<b>${String(cat).replace("\n", " ")}</b>` + series.slice().reverse().map(r =>
+        linhaDica(r.cor, r === s ? `<b>${r.nome}</b>` : r.nome, formato(r.valores[i]))).join("") + linhaDica("", rotuloTotal, formato(totais[i])), ev));
+      forma.addEventListener("mouseleave", esconderDica);
+      base += v;
+    });
+    const estreito = passo < 56;
+    svgEl("text", { x: x + larg / 2, y: y(totais[i]) - 7, "text-anchor": "middle", "font-size": estreito ? 11 : 12.5, "font-weight": 700, fill: COR.texto }, q.svg, (estreito ? "" : "R$ ") + num(totais[i]));
+    String(cat).split("\n").forEach((parte, j) => svgEl("text", { x: x + larg / 2, y: q.H - q.m.b + 17 + j * 14, "text-anchor": "middle", "font-size": j ? 11 : 12.5, fill: COR.mudo }, q.svg,
+      passo < 56 ? (j ? "" : "'" + parte.slice(2, 4)) : parte));
+  });
+}
+
+/* ---------- Barras horizontais (com valores negativos) ---------- */
+function barrasHorizontais(id, { itens, formato, alturaLinha = 30, larguraRotulo = 150, minimo, maximo }) {
+  const cont = $(id), q = quadro(cont, itens.length * alturaLinha + 14, { t: 4, d: 64, b: 10, e: larguraRotulo });
+  const vs = itens.map(i => i.valor), lo = minimo !== undefined ? minimo : Math.min(0, ...vs), hi = maximo !== undefined ? maximo : Math.max(0, ...vs);
+  const x = v => q.m.e + q.iw * (v - lo) / (hi - lo || 1), h = Math.min(18, alturaLinha - 8);
+  if (lo < 0) svgEl("line", { x1: x(0), x2: x(0), y1: 0, y2: q.H - 6, stroke: COR.eixo, "stroke-width": 1 }, q.svg);
+  itens.forEach((it, i) => {
+    const yc = q.m.t + alturaLinha * i + alturaLinha / 2, x0 = x(Math.max(lo, 0)), x1 = x(it.valor);
+    svgEl("text", { x: q.m.e - 8, y: yc + 4, "text-anchor": "end", "font-size": 12.5, fill: COR.texto, "font-weight": it.negrito ? 700 : 400 }, q.svg, it.rotulo);
+    const larg = Math.abs(x1 - x0), esq = Math.min(x0, x1), r = Math.min(4, larg);
+    const d = it.valor >= 0
+      ? `M${esq},${yc - h / 2}H${esq + larg - r}Q${esq + larg},${yc - h / 2} ${esq + larg},${yc - h / 2 + r}V${yc + h / 2 - r}Q${esq + larg},${yc + h / 2} ${esq + larg - r},${yc + h / 2}H${esq}Z`
+      : `M${esq + larg},${yc - h / 2}H${esq + r}Q${esq},${yc - h / 2} ${esq},${yc - h / 2 + r}V${yc + h / 2 - r}Q${esq},${yc + h / 2} ${esq + r},${yc + h / 2}H${esq + larg}Z`;
+    svgEl("path", { d, fill: it.cor }, q.svg);
+    svgEl("text", { x: it.valor >= 0 ? x1 + 6 : x1 - 6, y: yc + 4, "text-anchor": it.valor >= 0 ? "start" : "end", "font-size": 12.5, fill: COR.texto, "font-weight": it.negrito ? 700 : 400 }, q.svg, formato(it.valor));
+    const alvo = svgEl("rect", { x: 0, y: yc - alturaLinha / 2, width: q.W, height: alturaLinha, fill: "transparent" }, q.svg);
+    if (it.dica) { alvo.addEventListener("mousemove", ev => mostrarDica(it.dica, ev)); alvo.addEventListener("mouseleave", esconderDica); }
+  });
+}
+
+/* ---------- Barras agrupadas ---------- */
+function barrasAgrupadas(id, { categorias, series, formato }) {
+  const cont = $(id), q = quadro(cont, 330, { t: 22, d: 8, b: 44, e: 46 });
+  const todos = series.flatMap(s => s.valores), esc = escala(Math.min(0, ...todos), Math.max(...todos) * 1.08);
+  const y = v => q.m.t + q.ih * (1 - (v - esc.min) / (esc.max - esc.min));
+  eixoY(q, esc, y, v => num(v) + "%");
+  const passo = q.iw / categorias.length, larg = Math.min(26, (passo - 14) / series.length);
+  categorias.forEach((cat, i) => {
+    const centro = q.m.e + passo * i + passo / 2;
+    series.forEach((s, k) => {
+      const v = s.valores[i], x = centro + (k - series.length / 2) * (larg + 2) + 1, y0 = y(0), y1 = y(v);
+      svgEl("path", { d: barraArredondada(x, Math.min(y0, y1), larg, Math.abs(y1 - y0), 4, v >= 0), fill: s.cor }, q.svg);
+      svgEl("text", { x: x + larg / 2, y: v >= 0 ? y1 - 5 : y1 + 14, "text-anchor": "middle", "font-size": 11.5, fill: COR.texto }, q.svg, num(v, 1));
+    });
+    String(cat).split("\n").forEach((parte, j) => svgEl("text", { x: centro, y: q.H - q.m.b + 17 + j * 14, "text-anchor": "middle", "font-size": j ? 11 : 12.5, fill: COR.mudo }, q.svg, parte));
+    const alvo = svgEl("rect", { x: centro - passo / 2, y: q.m.t, width: passo, height: q.ih, fill: "transparent" }, q.svg);
+    alvo.addEventListener("mousemove", ev => mostrarDica(`<b>${String(cat).replace("\n", " ")}</b>` + series.map(s => linhaDica(s.cor, s.nome, formato(s.valores[i]))).join("") +
+      linhaDica("", "Diferença", num(series[0].valores[i] - series[1].valores[i], 1) + " p.p."), ev));
+    alvo.addEventListener("mouseleave", esconderDica);
+  });
+}
+
+/* ---------- Linhas, com faixa e mira ---------- */
+function linhas(id, { rotulos, series, faixa, formato, yMin, yMax, altura = 340, margemDireita = 150, rotulosFinais = true, marcasX, linhaBase, divisor }) {
+  const cont = $(id), q = quadro(cont, altura, { t: 14, d: rotulosFinais ? margemDireita : 14, b: 30, e: 48 });
+  const todos = series.flatMap(s => s.valores.filter(v => v != null)).concat(faixa ? faixa.min.concat(faixa.max).filter(v => v != null) : []);
+  const esc = escala(yMin !== undefined ? yMin : Math.min(...todos), yMax !== undefined ? yMax : Math.max(...todos));
+  const n = rotulos.length, x = i => q.m.e + q.iw * i / (n - 1), y = v => q.m.t + q.ih * (1 - (v - esc.min) / (esc.max - esc.min));
+  eixoY(q, esc, y, v => num(v));
+  (marcasX || []).forEach(mx => svgEl("text", { x: x(mx.i), y: q.H - 9, "text-anchor": "middle", "font-size": 12, fill: COR.mudo }, q.svg, mx.texto));
+  if (linhaBase !== undefined) svgEl("line", { x1: q.m.e, x2: q.W - q.m.d, y1: y(linhaBase), y2: y(linhaBase), stroke: COR.eixo, "stroke-width": 1.5 }, q.svg);
+  if (divisor !== undefined) {
+    svgEl("line", { x1: x(divisor), x2: x(divisor), y1: q.m.t, y2: q.m.t + q.ih, stroke: COR.eixo, "stroke-width": 1, "stroke-dasharray": "3 3" }, q.svg);
+    svgEl("text", { x: x(divisor) + 6, y: q.m.t + 11, "font-size": 11.5, fill: COR.mudo }, q.svg, "projeção");
+  }
+  if (faixa) {
+    const idx = faixa.min.map((v, i) => v == null ? -1 : i).filter(i => i >= 0);
+    const d = "M" + idx.map(i => `${x(i)},${y(faixa.max[i])}`).join("L") + "L" + idx.slice().reverse().map(i => `${x(i)},${y(faixa.min[i])}`).join("L") + "Z";
+    svgEl("path", { d, fill: faixa.cor, opacity: .18 }, q.svg);
+  }
+  series.forEach(s => {
+    let d = "", aberto = false;
+    s.valores.forEach((v, i) => { if (v == null) { aberto = false; return; } d += (aberto ? "L" : "M") + x(i) + "," + y(v); aberto = true; });
+    svgEl("path", { d, fill: "none", stroke: s.cor, "stroke-width": s.largura || 2, "stroke-linejoin": "round", "stroke-linecap": "round", "stroke-dasharray": s.tracejada ? "6 4" : "" }, q.svg);
+  });
+  if (rotulosFinais) {
+    const fins = series.filter(s => !s.semRotulo).map(s => { let i = s.valores.length - 1; while (s.valores[i] == null) i--; return { s, i, v: s.valores[i], y: y(s.valores[i]) }; }).sort((a, b) => a.y - b.y);
+    for (let k = 1; k < fins.length; k++) if (fins[k].y - fins[k - 1].y < 30) fins[k].y = fins[k - 1].y + 30;
+    fins.forEach(f => {
+      svgEl("line", { x1: x(f.i) + 3, x2: x(n - 1) + 12, y1: y(f.v), y2: f.y, stroke: f.s.cor, "stroke-width": 1.5 }, q.svg);
+      svgEl("text", { x: x(n - 1) + 16, y: f.y - 1, "font-size": 12.5, fill: COR.texto }, q.svg, f.s.nome);
+      svgEl("text", { x: x(n - 1) + 16, y: f.y + 13, "font-size": 12.5, fill: COR.texto, "font-weight": 700 }, q.svg, formato(f.v));
+    });
+  }
+  const mira = svgEl("line", { y1: q.m.t, y2: q.m.t + q.ih, stroke: COR.mudo, "stroke-width": 1, visibility: "hidden" }, q.svg);
+  const pontos = series.map(s => svgEl("circle", { r: 4.5, fill: s.cor, stroke: "#fff", "stroke-width": 2, visibility: "hidden" }, q.svg));
+  const alvo = svgEl("rect", { x: q.m.e, y: q.m.t, width: q.iw, height: q.ih, fill: "transparent" }, q.svg);
+  alvo.addEventListener("mousemove", ev => {
+    const r = q.svg.getBoundingClientRect(), px = (ev.clientX - r.left) * q.W / r.width;
+    const i = Math.max(0, Math.min(n - 1, Math.round((px - q.m.e) / q.iw * (n - 1))));
+    mira.setAttribute("x1", x(i)); mira.setAttribute("x2", x(i)); mira.setAttribute("visibility", "visible");
+    let html = `<b>${rotulos[i]}</b>`;
+    series.forEach((s, k) => { const v = s.valores[i];
+      if (v == null) { pontos[k].setAttribute("visibility", "hidden"); return; }
+      pontos[k].setAttribute("cx", x(i)); pontos[k].setAttribute("cy", y(v)); pontos[k].setAttribute("visibility", "visible");
+      html += linhaDica(s.cor, s.nome, formato(v)); });
+    if (faixa && faixa.min[i] != null) html += linhaDica("", "Faixa", formato(faixa.min[i]) + " a " + formato(faixa.max[i]));
+    mostrarDica(html, ev);
+  });
+  alvo.addEventListener("mouseleave", () => { esconderDica(); mira.setAttribute("visibility", "hidden"); pontos.forEach(p => p.setAttribute("visibility", "hidden")); });
+}
+
+/* ================= Conteúdo ================= */
+const anual = DADOS.composicao_real_anual, a0 = anual[0], a1 = anual[anual.length - 1];
+const varReal = k => (a1[k] / a0[k] - 1) * 100;
+const mesRef = DADOS.composicao_rs[DADOS.composicao_rs.length - 1].mes;
+const rotAno = r => r.meses === 12 || r.meses === 11 ? String(r.ano) : `${r.ano}\n(${r.meses} meses)`;
+
+function abertura() {
+  $("resposta").innerHTML = `Descontada a inflação, o custo do gás na origem <strong>caiu ${num(-varReal("produtor"))}%</strong> desde ${a0.ano}, mas o botijão ficou <strong>${num(varReal("consumidor"), 1)}% mais caro</strong>. ` +
+    `A diferença ficou com o <strong>ICMS</strong> e com a <strong>margem de revenda</strong>.`;
+  const itens = [["consumidor", "Preço ao consumidor"], ["produtor", "Custo do produto na origem"], ["icms", "ICMS"], ["revenda", "Margem de revenda"]];
+  $("indicadores").innerHTML = itens.map(([k, nome]) => `<div class="cartao indicador" style="border-top-color:${COR[k]}">
+    <div class="rotulo"><i class="amostra" style="background:${COR[k]}"></i>${nome}</div>
+    <div class="valor">${pct(varReal(k), Math.abs(varReal(k)) < 20 ? 1 : 0)}</div>
+    <div class="detalhe">de ${brl(a0[k])} para ${brl(a1[k])}, em reais de ${mesCurto(mesRef)}</div></div>`).join("");
+}
+
+function composicao(modo) {
+  let linhasAno;
+  if (modo === "real") linhasAno = anual.map(r => ({ rot: rotAno(r), ...r }));
+  else {
+    const porAno = {};
+    DADOS.composicao_rs.forEach(r => { const a = r.mes.slice(0, 4); (porAno[a] = porAno[a] || []).push(r); });
+    linhasAno = Object.keys(porAno).sort().map(a => { const ms = porAno[a], media = k => { const v = ms.map(m => m[k]).filter(x => x != null); return v.reduce((s, x) => s + x, 0) / v.length; };
+      return { rot: rotAno({ ano: a, meses: ms.length }), ano: a, produtor: media("produtor"), icms: media("icms"), distribuicao: media("distribuicao"), revenda: media("revenda") }; });
+  }
+  $("nota-composicao").textContent = modo === "real"
+    ? `Média anual, em reais de ${mesCurto(mesRef)} (corrigidos pelo IPCA). Passe o cursor sobre as barras.`
+    : "Média anual, em valores da época (sem correção pela inflação). Passe o cursor sobre as barras.";
+  const series = PARCELAS.map(k => ({ nome: NOME[k], cor: COR[k], valores: linhasAno.map(r => r[k]) }));
+  barrasEmpilhadas("g-composicao", { categorias: linhasAno.map(r => r.rot), series, formato: v => brl(v), rotuloTotal: "Preço ao consumidor" });
+  tabela("t-composicao", ["Ano"].concat(PARCELAS.map(k => NOME[k]), ["Preço ao consumidor"]),
+    linhasAno.map(r => [String(r.ano)].concat(PARCELAS.map(k => num(r[k], 2)), [num(PARCELAS.reduce((s, k) => s + r[k], 0), 2)])));
+  $("btn-real").setAttribute("aria-pressed", modo === "real"); $("btn-nominal").setAttribute("aria-pressed", modo !== "real");
+}
+
+function diferenca() {
+  const total = a1.consumidor - a0.consumidor;
+  $("titulo-diferenca").textContent = `Quem ficou com os ${brl(total, 0)} de aumento real`;
+  $("nota-diferenca").textContent = `Variação de cada parcela entre ${a0.ano} e ${a1.ano}, em reais de ${mesCurto(mesRef)} por botijão.`;
+  const itens = PARCELAS.map(k => ({ rotulo: NOME[k], valor: a1[k] - a0[k], cor: COR[k],
+    dica: `<b>${NOME[k]}</b>` + linhaDica("", a0.ano, brl(a0[k])) + linhaDica("", a1.ano, brl(a1[k])) + linhaDica("", "Variação real", pct(varReal(k))) }));
+  itens.push({ rotulo: "Preço ao consumidor", valor: total, cor: COR.consumidor, negrito: true });
+  const larg = Math.max(...itens.map(i => Math.abs(i.valor)));
+  barrasHorizontais("g-diferenca", { itens, formato: v => sinal(v), larguraRotulo: 178, alturaLinha: 38, minimo: -larg * 0.95, maximo: larg * 1.02 });
+  const ganho = PARCELAS.filter(k => a1[k] > a0[k]).reduce((s, k) => s + a1[k] - a0[k], 0);
+  $("leitura-diferenca").innerHTML = `Somados, ICMS e margem de revenda cresceram ${brl(a1.icms - a0.icms + a1.revenda - a0.revenda)} por botijão. ` +
+    `O produto ficou ${brl(a0.produtor - a1.produtor)} mais barato na origem, e essa queda não chegou ao consumidor.`;
+}
+
+function indices() {
+  const base = DADOS.indices_base100, de2018 = base.filter(r => r.mes.startsWith("2018"));
+  const media = k => de2018.reduce((s, r) => s + r[k], 0) / de2018.length;
+  const serie = k => base.map(r => r[k] == null ? null : 100 * r[k] / media(k));
+  linhas("g-indices", { rotulos: base.map(r => mesCurto(r.mes)), formato: v => num(v), yMin: 80, linhaBase: 100,
+    marcasX: base.map((r, i) => ({ i, texto: r.mes.slice(0, 4), jan: r.mes.endsWith("-01") })).filter(m => m.jan),
+    margemDireita: 128,
+    series: [{ nome: "IPCA", cor: COR.ipca, valores: serie("ipca"), tracejada: true },
+             { nome: "Preço do produtor", cor: COR.produtor, valores: serie("produtor") },
+             { nome: "Preço ao consumidor", cor: COR.consumidor, valores: serie("consumidor"), largura: 2.5 }] });
+  const r = DADOS.reajuste_anual_vs_ipca;
+  legenda("leg-reajuste", [{ nome: "Botijão no RS", cor: COR.consumidor }, { nome: "IPCA", cor: COR.ipca }]);
+  barrasAgrupadas("g-reajuste", { categorias: r.map(x => x.ate.endsWith("-12") ? String(x.ano) : `${x.ano}\n(até ${mesCurto(x.ate)})`), formato: v => num(v, 1) + "%",
+    series: [{ nome: "Botijão no RS", cor: COR.consumidor, valores: r.map(x => x.glp_pct) }, { nome: "IPCA", cor: COR.ipca, valores: r.map(x => x.ipca_pct) }] });
+}
+
+function p13() {
+  const v = DADOS.sazonalidade_volume, p = DADOS.sazonalidade_preco;
+  legenda("leg-sazonal", [{ nome: "Volume vendido", cor: COR.produtor, linha: true }, { nome: "Preço ao consumidor", cor: COR.consumidor, linha: true }]);
+  linhas("g-sazonal", { rotulos: v.map(r => MESES[+r.mes_do_ano - 1]), formato: v => num(v, 1), altura: 300, yMin: 80, yMax: 115, linhaBase: 100, margemDireita: 14, rotulosFinais: false,
+    marcasX: v.map((r, i) => ({ i, texto: MESES[i] })),
+    series: [{ nome: "Volume vendido", cor: COR.produtor, valores: v.map(r => r.indice) }, { nome: "Preço ao consumidor", cor: COR.consumidor, valores: p.map(r => r.indice), largura: 2.5 }] });
+  const part = PROJECAO.participacao_p13, completos = DADOS.volume_anual.filter(r => r.meses === 12), u = completos[completos.length - 1], pr = completos[0];
+  const pu = part.find(r => +r.ano === +u.ano), pico = v.reduce((a, b) => b.indice > a.indice ? b : a), vale = v.reduce((a, b) => b.indice < a.indice ? b : a);
+  const cartoes = [
+    [num(pu.p13_pct, 1) + "%", `do GLP vendido no RS em ${u.ano} foi em botijões de 13 kg`, `${num(pu.p13, 1)} mil toneladas de P13, contra ${num(pu.granel, 1)} mil a granel`],
+    [pct((u.mil_ton / pr.mil_ton - 1) * 100), `no volume de P13 entre ${pr.ano} e ${u.ano}`, `de ${num(pr.mil_ton, 1)} para ${num(u.mil_ton, 1)} mil toneladas por ano`],
+    [pct(pico.indice - 100, 0) + " / " + pct(vale.indice - 100, 0), `vendas em ${MESES[+pico.mes_do_ano - 1]} e em ${MESES[+vale.mes_do_ano - 1]}, contra um mês típico`, "o preço varia menos de 1% entre os meses"]];
+  $("indicadores-p13").innerHTML = cartoes.map(c => `<div class="cartao indicador"><div class="valor" style="font-size:30px">${c[0]}</div><div class="rotulo" style="color:var(--text)">${c[1]}</div><div class="detalhe">${c[2]}</div></div>`).join("");
+}
+
+function cidades() {
+  const m = DADOS.municipios_12m.slice().sort((a, b) => b.preco_medio - a.preco_medio), meta = DADOS.meta, disp = {};
+  DADOS.dispersao_municipios_12m.forEach(d => disp[d.municipio] = d);
+  const caro = m[0], barato = m[m.length - 1];
+  $("sub-cidades").textContent = `Nos últimos 12 meses, o mesmo botijão custou em média ${brl(barato.preco_medio)} em ${titulo(barato.municipio)} e ${brl(caro.preco_medio)} em ${titulo(caro.municipio)}. As quatro cidades da Serra pesquisadas ficam acima da média do estado.`;
+  $("nota-cidades").textContent = `${mesCurto(meta.janela_12m[0])} a ${mesCurto(meta.janela_12m[1])}, em R$ por botijão. Média do RS: ${brl(meta.preco_medio_rs_12m)}.`;
+  legenda("leg-cidades", [{ nome: "Serra Gaúcha", cor: COR.destaque }, { nome: "Demais municípios", cor: COR.neutro }]);
+  const lo = Math.floor(barato.preco_medio / 10) * 10 - 10;
+  barrasHorizontais("g-cidades", { alturaLinha: 22, larguraRotulo: 158, minimo: lo, formato: v => num(v, 2),
+    itens: m.map(c => ({ rotulo: titulo(c.municipio), valor: c.preco_medio, cor: SERRA.includes(c.municipio) ? COR.destaque : COR.neutro, negrito: SERRA.includes(c.municipio),
+      dica: `<b>${titulo(c.municipio)}</b>` + linhaDica("", "Preço médio", brl(c.preco_medio)) + linhaDica("", "Entre", brl(disp[c.municipio].p10) + " e " + brl(disp[c.municipio].p90)) +
+            linhaDica("", "Diferença para o RS", sinal(c.preco_medio - meta.preco_medio_rs_12m)) + linhaDica("", "Revendas / coletas", c.revendas + " / " + c.coletas) })) });
+  const b = DADOS.bandeira_12m.slice().sort((x, y) => y.desvio_medio - x.desvio_medio);
+  barrasHorizontais("g-bandeira", { alturaLinha: 30, larguraRotulo: 118, formato: v => sinal(v),
+    itens: b.map(x => ({ rotulo: titulo(x.bandeira), valor: x.desvio_medio, cor: x.bandeira === "BRANCA" ? COR.destaque : COR.neutro, negrito: x.bandeira === "BRANCA",
+      dica: `<b>${titulo(x.bandeira)}</b>` + linhaDica("", "Preço médio", brl(x.preco_medio)) + linhaDica("", "Revendas / coletas", x.revendas + " / " + x.coletas) })),
+    minimo: Math.min(...b.map(x => x.desvio_medio)) * 1.75, maximo: Math.max(...b.map(x => x.desvio_medio)) * 1.75 });
+  const mg = DADOS.margem_revenda_municipio, escolhidos = [mg[0], mg[1]].concat(mg.filter(r => SERRA.includes(r.municipio)), [mg[mg.length - 2], mg[mg.length - 1]]);
+  const unicos = escolhidos.filter((r, i) => escolhidos.findIndex(o => o.municipio === r.municipio) === i).sort((a, b) => a.margem - b.margem);
+  tabela("t-margem", ["Município", "Compra", "Margem", "Venda"], unicos.map(r => [titulo(r.municipio), num(r.compra, 2), num(r.margem, 2), num(r.venda, 2)]), i => SERRA.includes(unicos[i].municipio));
+}
+
+function projecao() {
+  const P = PROJECAO, pr = P.premissas, rs = P.resumo.find(r => r.local === "RS"), mer = P.mercado, m27 = mer[mer.length - 1], m25 = mer[0];
+  $("sub-projecao").textContent = `Como o botijão acompanhou o IPCA em todos os anos menos 2021, a projeção parte do preço atual e aplica a inflação dos últimos 12 meses (${num(pr.ipca_12m_pct, 2)}%). ` +
+    `O volume segue a tendência recente (${pct(pr.taxa_anual_volume_pct)} ao ano).`;
+  const cart = [
+    [brl(rs.media_2027), "preço médio projetado do P13 no RS em 2027", `hoje ${brl(rs.media_ultimos_12m)} (últimos 12 meses); dez/2027 entre ${brl(rs.dez_2027_min, 0)} e ${brl(rs.dez_2027_max, 0)}`],
+    [num(m27.botijoes_milhoes, 1) + " mi", "de botijões projetados para o RS em 2027", `${num(m27.mil_ton, 1)} mil toneladas, contra ${num(m25.mil_ton, 1)} mil em ${m25.ano}`],
+    ["R$ " + num(m27.faturamento_bilhoes, 2) + " bi", "em vendas de P13 ao consumidor no RS em 2027", `volume vezes preço médio; R$ ${num(m25.faturamento_bilhoes, 2)} bi em ${m25.ano}`]];
+  $("indicadores-projecao").innerHTML = cart.map(c => `<div class="cartao indicador" style="border-top-color:var(--gold)"><div class="valor" style="font-size:30px">${c[0]}</div><div class="rotulo" style="color:var(--text)">${c[1]}</div><div class="detalhe">${c[2]}</div></div>`).join("");
+
+  const hist = P.historico_serra.filter(r => r.mes >= "2023-01"), fut = P.preco_rs, rot = hist.map(r => r.mes).concat(fut.map(r => r.mes));
+  const nH = hist.length, vazio = k => Array(k).fill(null);
+  $("nota-projecao").textContent = `Em R$ por botijão. Realizado até ${mesCurto(pr.ultimo_mes_preco)}; projeção até ${mesCurto(pr.horizonte)}. A faixa vem dos erros que a mesma regra cometeu no passado.`;
+  legenda("leg-projecao", [{ nome: "Realizado", cor: COR.consumidor, linha: true }, { nome: "Projeção (inflação)", cor: COR.consumidor, linha: true, tracejada: true }, { nome: "Faixa provável", cor: "#B9C3D3" }]);
+  linhas("g-projecao", { rotulos: rot.map(mesCurto), formato: v => brl(v), altura: 360, margemDireita: 96, divisor: nH - 1,
+    marcasX: rot.map((m, i) => ({ i, texto: m.slice(0, 4), jan: m.endsWith("-01") })).filter(x => x.jan),
+    faixa: { min: vazio(nH).concat(fut.map(r => r.minimo)), max: vazio(nH).concat(fut.map(r => r.maximo)), cor: COR.consumidor },
+    series: [{ nome: "Realizado", cor: COR.consumidor, valores: hist.map(r => r.RS).concat(vazio(fut.length)), largura: 2.5, semRotulo: true },
+             { nome: "Projeção", cor: COR.consumidor, valores: vazio(nH - 1).concat([hist[nH - 1].RS], fut.map(r => r.central)), tracejada: true, largura: 2.5 }] });
+
+  tabela("t-serra", ["Local", "Últimos 12 meses", "Média de 2027", "Dez/2027", "Faixa em dez/2027", "Diferença para o RS"],
+    P.resumo.map(r => [r.local === "RS" ? "Rio Grande do Sul" : titulo(r.local), num(r.media_ultimos_12m, 2), num(r.media_2027, 2), num(r.dez_2027, 2),
+      num(r.dez_2027_min, 0) + " a " + num(r.dez_2027_max, 0), r.local === "RS" ? "—" : sinal(r.diferenca_para_rs)]), i => i === 0);
+  const nomes = { ipca: "Reajuste pela inflação (usada)", preco_constante: "Preço parado", tendencia_12m: "Tendência dos últimos 12 meses", tendencia_36m: "Tendência dos últimos 36 meses" };
+  $("nota-teste").textContent = `Quatro regras foram aplicadas em ${pr.origens_do_teste.length} pontos do passado (de ${mesCurto(pr.origens_do_teste[0])} a ${mesCurto(pr.origens_do_teste[pr.origens_do_teste.length - 1])}), cada uma projetando os 12 meses seguintes. Erro em % do preço realizado.`;
+  tabela("t-teste", ["Regra", "Erro médio", "Pior erro"], P.comparacao_regras.map(r => [nomes[r.regra] || r.regra, num(r.erro_medio_abs, 1) + "%", num(r.pior_erro_abs, 1) + "%"]), i => P.comparacao_regras[i].regra === "ipca");
+}
+
+function rodape() {
+  const meta = DADOS.meta;
+  $("fonte-anp").textContent = `${num(meta.coletas_rs)} coletas em ${meta.municipios_rs} municípios e ${num(meta.revendas_rs)} revendas do RS, de ${mesCurto(meta.periodo_precos[0])} a ${mesCurto(meta.periodo_precos[1])}.`;
+  $("rodape-datas").textContent = `Preços por revenda até ${mesCurto(meta.periodo_precos[1])}; composição do preço e IPCA até ${mesCurto(mesRef)}.`;
+}
+
+let modoComposicao = "real";
+function desenhar() {
+  legenda("leg-composicao", PARCELAS.map(k => ({ nome: NOME[k], cor: COR[k] })));
+  abertura(); composicao(modoComposicao); diferenca(); indices(); p13(); cidades(); projecao(); rodape();
+}
+$("btn-real").addEventListener("click", () => { modoComposicao = "real"; composicao("real"); });
+$("btn-nominal").addEventListener("click", () => { modoComposicao = "nominal"; composicao("nominal"); });
+let espera; window.addEventListener("resize", () => { clearTimeout(espera); espera = setTimeout(desenhar, 150); });
+desenhar();
+</script>
+</body>
+</html>

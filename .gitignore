@@ -1,0 +1,17 @@
+# Dados brutos não vão para o repositório: são baixados pelo script.
+dados/brutos/
+__pycache__/
+.venv/
+*.pyc
+
+# Base intermediária, recriada por scripts/01_tratar_precos.py
+dados/tratados/*.sqlite*
+
+# Preços por revenda (15 MB, com razão social e CNPJ das revendas): recriado por scripts/01_tratar_precos.py
+dados/tratados/coletas_rs.csv
+
+# Rascunhos
+dashboard/_*
+
+# Atalho local de publicação
+publicar_github.bat
